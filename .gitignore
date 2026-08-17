@@ -1,0 +1,5 @@
+backend_cdx/.pytest_cache
+backend_cdx/attendance.db
+backend_cdx/venv
+frontend_cdx/node_modules
+frontend_cdx/dist

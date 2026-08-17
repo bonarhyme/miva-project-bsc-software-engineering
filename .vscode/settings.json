@@ -1,0 +1,7 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend_cdx/venv/bin/python",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/backend_cdx"
+  ],
+  "python.analysis.pythonVersion": "3.11"
+}
