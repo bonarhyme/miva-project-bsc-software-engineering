@@ -45,9 +45,9 @@ function Register({ studentForm, isBusy, hasCapturedImage, onChange, onSubmit }:
         Registration Number
         <input
           value={studentForm.reg_number}
-          pattern={REG_NUMBER_PATTERN}
-          placeholder="2024/COMP/A/0001"
-          title="Use YYYY/CCCC/X/NNNN or YYYY/CCCC/X/NNNNN"
+
+          placeholder="2024/A/COMP/0001"
+  
           onChange={(e) => onChange({ ...studentForm, reg_number: e.target.value.toUpperCase() })}
           required
         />

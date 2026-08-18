@@ -5,7 +5,7 @@ import re
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
-REG_NUMBER_PATTERN = re.compile(r"^\d{4}/[A-Z]{3,4}/[A-Z]/\d{4,5}$")
+REG_NUMBER_PATTERN = re.compile(r"^\d{4}/[A-Z]/[A-Z]{3,4}/\d{4,5}$")
 COURSE_ID_PATTERN = re.compile(r"^[A-Z]{3,4}-\d{3}$")
 
 
@@ -29,7 +29,7 @@ class UserCreate(BaseModel):
     def validate_reg_number(cls, value: str) -> str:
         reg_number = value.strip().upper()
         if not REG_NUMBER_PATTERN.fullmatch(reg_number):
-            raise ValueError("Registration number must use YYYY/CCCC/X/NNNN or YYYY/CCCC/X/NNNNN.")
+            raise ValueError("Invalid registration numbers formats")
         return reg_number
 
 

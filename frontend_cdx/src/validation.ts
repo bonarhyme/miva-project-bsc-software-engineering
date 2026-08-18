@@ -1,4 +1,4 @@
-export const REG_NUMBER_PATTERN = "\\d{4}/[A-Za-z]{3,4}/[A-Za-z]/\\d{4,5}";
+export const REG_NUMBER_PATTERN = "\\d{4}/[A-Za-z]/[A-Za-z]{3,4}/\\d{4,5}";
 export const COURSE_ID_PATTERN = "[A-Za-z]{3,4}-\\d{3}";
 
 export const regNumberRegex = new RegExp(`^${REG_NUMBER_PATTERN}$`);

@@ -151,7 +151,7 @@ def test_register_user_success(client, mock_face_service):
                 "name": "John Doe",
                 "email": "john@example.com",
                 "student_id": "STU001",
-                "reg_number": "REG001",
+                "reg_number": "2024/A/CST/0001",
                 "image_base64": "fake-image-data",
             },
         )
@@ -168,7 +168,7 @@ def test_register_user_success(client, mock_face_service):
         "John Doe",
         "john@example.com",
         "STU001",
-        "REG001",
+        "2024/A/CST/0001",
         "serialized-encoding",
     )
 
@@ -193,7 +193,7 @@ def test_register_user_duplicate_identity(client, mock_face_service):
                 "name": "John Doe",
                 "email": "john@example.com",
                 "student_id": "STU001",
-                "reg_number": "REG001",
+                "reg_number": "2024/A/CST/0001",
                 "image_base64": "fake-image-data",
             },
         )
@@ -237,7 +237,7 @@ def test_register_user_duplicate_face(client, mock_face_service):
                 "name": "John Doe",
                 "email": "john@example.com",
                 "student_id": "STU002",
-                "reg_number": "REG002",
+                "reg_number": "2024/A/CST/0002",
                 "image_base64": "fake-image-data",
             },
         )
@@ -264,7 +264,7 @@ def test_register_user_runtime_error(client, mock_face_service):
                 "name": "John Doe",
                 "email": "john@example.com",
                 "student_id": "STU001",
-                "reg_number": "REG001",
+                "reg_number": "2024/A/CST/0001",
                 "image_base64": "fake-image-data",
             },
         )
@@ -289,7 +289,7 @@ def test_register_user_invalid_image(client, mock_face_service):
                 "name": "John Doe",
                 "email": "john@example.com",
                 "student_id": "STU001",
-                "reg_number": "REG001",
+                "reg_number": "2024/A/CST/0001",
                 "image_base64": "invalid-image",
             },
         )
@@ -416,6 +416,7 @@ def test_recognize_user_success(client):
         "message": "Student recognized successfully.",
         "matched": True,
         "student": student,
+        "attendance": None,
     }
 
 
@@ -434,6 +435,8 @@ def test_recognize_user_no_match(client):
     assert response.json() == {
         "message": "No matching student found.",
         "matched": False,
+        "student": None,
+        "attendance": None,
     }
 
 
@@ -450,7 +453,7 @@ def test_recognize_and_mark_attendance_success(client):
     attendance = {
         "id": 1,
         "student_id": "STU001",
-        "course_id": "CSC101",
+        "course_id": "CSC-101",
         "date": "2026-08-16",
         "status": "present",
     }
@@ -469,7 +472,7 @@ def test_recognize_and_mark_attendance_success(client):
             "/attendance/recognize",
             json={
                 "image_base64": "image-data",
-                "course_id": "CSC101",
+                "course_id": "CSC-101",
             },
         )
 
@@ -481,7 +484,7 @@ def test_recognize_and_mark_attendance_success(client):
         "attendance": attendance,
     }
 
-    mock_mark.assert_called_once_with("STU001", "CSC101")
+    mock_mark.assert_called_once_with("STU001", "CSC-101")
 
 
 def test_recognize_and_mark_attendance_no_match(client):
@@ -497,7 +500,7 @@ def test_recognize_and_mark_attendance_no_match(client):
             "/attendance/recognize",
             json={
                 "image_base64": "image-data",
-                "course_id": "CSC101",
+                "course_id": "CSC-101",
             },
         )
 
@@ -505,6 +508,8 @@ def test_recognize_and_mark_attendance_no_match(client):
     assert response.json() == {
         "message": "No matching student found.",
         "matched": False,
+        "student": None,
+        "attendance": None,
     }
 
     mock_mark.assert_not_called()
